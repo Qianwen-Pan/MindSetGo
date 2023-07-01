@@ -1,7 +1,4 @@
 require("dotenv").config();
-// const express = require("express");
-// const bodyParser = require("body-parser");
-// const mongoose = require("mongoose");
 
 import express from 'express';
 import mongoose from 'mongoose';
@@ -19,17 +16,13 @@ const db_password = process.env.DB_PASSWORD;
 
 const url = `mongodb+srv://${db_name}:${db_password}@cluster0.iyauopq.mongodb.net/secrectsDB`;
 mongoose
-  .connect(13)
+  .connect(url)
   .then(() => console.log("MongoDB Connected..."))
   .catch((err: any) => console.log(err));
 
 app.get("/", (req: any, res: any ) => {
   res.send("hello world");
 });
-
-app.get("/book", (req, res) => {
-  
-})
 
 app.listen(3000, () => {
   console.log("server is working");
