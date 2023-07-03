@@ -13,6 +13,9 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import ImageCard from "../components/ImageCard";
+import InputAdornment from '@mui/material/InputAdornment';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import LockIcon from '@mui/icons-material/Lock';
 
 function Copyright(props) {
   return (
@@ -56,9 +59,6 @@ export default function SignInSide() {
           sm={4}
           md={6}
           sx={{
-            // backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
-            // backgroundRepeat: 'no-repeat',
-
             backgroundColor: (t) =>
               t.palette.mode === "light" ? "white" : t.palette.grey[900],
             backgroundSize: "cover",
@@ -118,6 +118,14 @@ export default function SignInSide() {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <AccountCircle />
+                    </InputAdornment>
+                  ),
+                }}
               />
               <TextField
                 margin="normal"
@@ -128,6 +136,13 @@ export default function SignInSide() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <LockIcon />
+                    </InputAdornment>
+                  ),
+                }}
               />
               {/* remember me checkbox */}
               {/* <FormControlLabel
