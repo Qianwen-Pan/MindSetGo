@@ -15,3 +15,4 @@ const projectSchema = new mongoose.Schema({
     colaborators:[]
   });
   const Project = mongoose.model("Project", projectSchema)
+  export default Project;
