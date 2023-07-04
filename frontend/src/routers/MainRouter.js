@@ -3,7 +3,7 @@ import {Routes,Route,NavLink, BrowserRouter,Switch} from 'react-router-dom';
 import { Dashboard } from '../components/Dashboard';
 
 import { Home } from '../components/Home';
-import Login from '../pages/Login';
+import Login from '../pages/login';
 import Signup from "../pages/Signup";
 import Notification from '../components/Notifications/Notification';
 import Resources from '../components/Resources';
