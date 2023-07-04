@@ -3,7 +3,8 @@ import {Routes,Route,NavLink, BrowserRouter,Switch} from 'react-router-dom';
 import { Dashboard } from '../components/Dashboard';
 
 import { Home } from '../components/Home';
-import { Login } from '../components/Login';
+import Login from '../pages/Login';
+import Signup from "../pages/Signup";
 import Notification from '../components/Notifications/Notification';
 import Resources from '../components/Resources';
 
@@ -19,6 +20,7 @@ export const MainRouter = () => {
             <Route path="/notification" element={<Notification />} />
             <Route path="/resources" element={<Resources/>} />
             <Route path="/login" element={<Login/>} />
+            <Route path='/register' element={<Signup/>} />
             <Route path="/home" element={<Home />} />
             <Route path="/dashboard" element={<Dashboard />} />
 
