@@ -39,7 +39,7 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-export default function Login() {
+export default function Signup() {
   const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -49,7 +49,7 @@ export default function Login() {
       password: data.get("password"),
     });
 
-    fetch("http://localhost:5001/login", {
+    fetch("http://localhost:5001/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -60,17 +60,15 @@ export default function Login() {
       }),
     })
       .then((response) => {
-        if(response.ok){
+        if (response.ok) {
           navigate("/dashboard", { replace: true });
         }
-        return response.json()})
+        response.json();
+      })
       .then((data) => console.log(data))
       .catch((error) => {
         console.error("Error:", error);
       });
-
-
-    
   };
 
   return (
@@ -125,7 +123,7 @@ export default function Login() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h4" sx={{ color: "white" }}>
-              Sign In
+              Sign Up
             </Typography>
             <Box
               component="form"
@@ -178,10 +176,10 @@ export default function Login() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2, backgroundColor: "#9AC5F4" }}
               >
-                Sign In
+                Sign Up
               </Button>
               <Grid container>
-                <Grid item xs>
+                {/* <Grid item xs>
                   <Link
                     href="#"
                     variant="body2"
@@ -189,14 +187,14 @@ export default function Login() {
                   >
                     Forgot password?
                   </Link>
-                </Grid>
+                </Grid> */}
                 <Grid item>
                   <Link
-                    href="/register"
+                    href="/login"
                     variant="body2"
                     sx={{ color: "white", textDecorationLine: "none" }}
                   >
-                    {"Don't have an account? Sign Up"}
+                    {"Already have an account? Sign In"}
                   </Link>
                 </Grid>
               </Grid>
