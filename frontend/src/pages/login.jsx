@@ -1,3 +1,4 @@
+import { useNavigate} from 'react-router-dom';
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -13,7 +14,6 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import ImageCard from "../components/ImageCard";
-
 function Copyright(props) {
   return (
     <Typography
@@ -36,7 +36,7 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-export default function SignInSide() {
+export default function login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -75,7 +75,7 @@ export default function SignInSide() {
               height: '100vh'
             }}
           >
-            <ImageCard />
+           <ImageCard/>
           </Box>
         </Grid>
         <Grid
