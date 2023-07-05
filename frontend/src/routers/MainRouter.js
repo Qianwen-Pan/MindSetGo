@@ -22,9 +22,7 @@ export const MainRouter = () => {
             
             <Route path="/login" element={<Login/>} />
             <Route path="/home" element={<Home />} />
-            
-
-            <Route path="/dashBoard/*" element={<DashBoard />} >
+                        <Route path="/dashBoard/*" element={<DashBoard />} >
                 <Route path="myAccount" element={<MyAccount />} />
                 <Route path="resources" element={<Resources />} /> 
                 <Route path="notification" element={<Notification />} />
