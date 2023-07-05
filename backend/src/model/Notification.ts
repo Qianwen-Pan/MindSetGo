@@ -3,9 +3,10 @@ import mongoose from "mongoose";
 const notificationSchema = new mongoose.Schema({
 
     id: String,
-    name: String,
-    type: String,
+    content: String,
+    title: String,
+    time: Date
     
   });
-  const Notification = mongoose.model("Project", notificationSchema)
+  const Notification = mongoose.model("Notification", notificationSchema)
   export default Notification;

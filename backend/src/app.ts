@@ -4,9 +4,17 @@ import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import session from "express-session";
-import passport from "passport";
-import cors from 'cors';
-import User from "./model/User"
+import passport, { authenticate } from "passport";
+import cors from "cors";
+import User from "./model/User";
+import { ensureAuthenticated } from "./midware/auth";
+import Project from "./model/Project";
+import { IUser } from "./model/User";
+
+import Reource from "./model/Reource";
+import Notification from "./model/Notification";
+import { v4 as uuidv4 } from "uuid";
+import moment from "moment";
 
 const app = express();
 app.use(express.json());
@@ -25,7 +33,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 //database setting
 const db_name = process.env.DB_NAME;
 const db_password = process.env.DB_PASSWORD;
@@ -36,28 +43,259 @@ mongoose
   .then(() => console.log("MongoDB Connected..."))
   .catch((err: any) => console.log(err));
 
-
 passport.use(User.createStrategy());
 
-passport.serializeUser(User.serializeUser());
+// passport.serializeUser((User as any).User.serializeUser());
+passport.serializeUser((User as any).serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.get("/", (req: any, res: any) => {
+//interface
+interface ProjectData {
+  projectName: string;
+  passTime: number;
+}
+
+interface NotificationData {
+  title: string;
+  content: number;
+  time: String;
+}
+
+interface ResourceData {
+  title: string;
+  content: number;
+}
+
+app.get("/", ensureAuthenticated, (req: any, res: any) => {
   res.send("hello world");
 });
 
-app.post("/register", (req: any, res: any) => {
+app.get("/notifications", ensureAuthenticated, (req, res) => {
+  const authedUser = req.user as IUser;
+  console.log(authedUser);
+
+  User.findById(authedUser.id)
+    .then((foundUser) => {
+      const notificationofCurUser = foundUser?.notification;
+
+      
+      let responseNotificationDate: NotificationData[] = [];
+      if (notificationofCurUser) {
+        notificationofCurUser.map((notification) => {
+          responseNotificationDate.push({
+            title: notification.title,
+            content: notification.content,
+            time: notification.time
+          });
+        });
+        res.status(200).send({ notification: responseNotificationDate });
+      } else {
+        res.status(200).send({ notification: [] });
+      }
+    })
+    .catch((e) => {
+      console.log(`get notification error: unable to find user`);
+      res
+        .status(400)
+        .send({ message: "get notification error: unable to find user" });
+    });
+});
+app.post("/notifications", ensureAuthenticated, (req, res) => {
+  const newNotification = new Notification({
+    id: uuidv4(),
+    title: req.body.title,
+    content: req.body.content,
+    time: moment(),
+  });
+
+  newNotification
+    .save()
+    .then(() => console.log("notification have saved"))
+    .catch((e) => console.log(`notification not saved ${e}`));
+
+  const authedUser = req.user as IUser;
+  User.findById(authedUser.id)
+    .then((foundUser) => {
+      foundUser?.notification?.push(newNotification);
+
+      foundUser
+        ?.save()
+        .then(() => {
+          res.status(200).send({
+            message: `notification has saved under this user ${authedUser.username}`,
+          });
+        })
+        .catch((e) => {
+          console.log(
+            `notification has saved under this user ${authedUser.username}. error: ${e}`
+          );
+          res.status(400).send({
+            message: `notification has saved under this user ${authedUser.username}. error: ${e}`,
+          });
+        });
+    })
+    .catch((e) => {
+      console.log("user not found");
+      res.status(400).send({ message: "user not found" });
+    });
+});
+app.get("/resources", ensureAuthenticated, (req, res) => {
+  const authedUser = req.user as IUser;
+  console.log(authedUser);
+
+  User.findById(authedUser.id)
+    .then((foundUser) => {
+      const resourceOfCurUser = foundUser?.resources;
+
+      
+      let responseResourceData: ResourceData[] = [];
+      if (resourceOfCurUser) {
+        resourceOfCurUser.map((resource) => {
+          responseResourceData.push({
+            title: resource.title,
+            content: resource.content
+          });
+        });
+        res.status(200).send({ resources: responseResourceData });
+      } else {
+        res.status(200).send({ resources: [] });
+      }
+    })
+    .catch((e) => {
+      console.log(`get notification error: unable to find user`);
+      res
+        .status(400)
+        .send({ message: "get notification error: unable to find user" });
+    });
+});
+
+app.post("/resources", ensureAuthenticated, (req, res) => {
+  const newResources = new Reource({
+    id: uuidv4(),
+    title: req.body.title,
+    content: req.body.content 
+  });
+
+  newResources
+    .save()
+    .then(() => console.log("resources have saved"))
+    .catch((e) => console.log(`resources not saved ${e}`));
+
+  const authedUser = req.user as IUser;
+  User.findById(authedUser.id)
+    .then((foundUser) => {
+      foundUser?.resources?.push(newResources);
+
+      foundUser
+        ?.save()
+        .then(() => {
+          res.status(200).send({
+            message: `resource has saved under this user ${authedUser.username}`,
+          });
+        })
+        .catch((e) => {
+          console.log(
+            `resource has saved under this user ${authedUser.username}. error: ${e}`
+          );
+          res.status(400).send({
+            message: `resource has saved under this user ${authedUser.username}. error: ${e}`,
+          });
+        });
+    })
+    .catch((e) => {
+      console.log("user not found");
+      res.status(400).send({ message: "user not found" });
+    });
+});
+
+app.get("/projects", ensureAuthenticated, (req, res) => {
+  const authedUser = req.user as IUser;
+  console.log(authedUser);
+
+  User.findById(authedUser.id)
+    .then((foundUser) => {
+      const projectsofCurUser = foundUser?.projects;
+
+      const currentDate = moment();
+      let responseProjectDate: ProjectData[] = [];
+      if (projectsofCurUser) {
+        projectsofCurUser.map((project) => {
+          responseProjectDate.push({
+            projectName: project.projectName,
+            passTime: currentDate.diff(project.startDate, "days"),
+          });
+        });
+        res.status(200).send({ projects: responseProjectDate });
+      } else {
+        res.status(200).send({ projects: [] });
+      }
+    })
+    .catch((e) => {
+      console.log(`get project error: unable to find user`);
+      res
+        .status(400)
+        .send({ message: "get project error: unable to find user" });
+    });
+});
+app.post("/project", ensureAuthenticated, (req, res) => {
+  const newProject = new Project({
+    id: uuidv4(),
+    projectName: req.body.projectName,
+    remote: req.body.isRemote,
+    projectLen: req.body.projectLen,
+    priority: req.body.priority,
+    newSkill: req.body.isNewSkillNeeded,
+    dailyMoodCheck: req.body.dailyMoodCheck,
+    startDate: moment(req.body.startDate).format("YYYY-MM-DD"),
+  });
+
+  newProject
+    .save()
+    .then(() => console.log("project have saved"))
+    .catch((e) => console.log(`project not saved ${e}`));
+
+  const authedUser = req.user as IUser;
+  User.findById(authedUser.id)
+    .then((foundUser) => {
+      foundUser?.projects?.push(newProject);
+
+      foundUser
+        ?.save()
+        .then(() => {
+          res.status(200).send({
+            message: `project has saved under this user ${authedUser.username}`,
+          });
+        })
+        .catch((e) => {
+          console.log(
+            `project has saved under this user ${authedUser.username}. error: ${e}`
+          );
+          res.status(400).send({
+            message: `project has saved under this user ${authedUser.username}. error: ${e}`,
+          });
+        });
+    })
+    .catch((e) => {
+      console.log("user not found");
+      res.status(400).send({ message: "user not found" });
+    });
+});
+
+app.post("/register", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
-
-  User.register({ username: username }, password)
+  const user = new User({
+    username: username,
+    password: password,
+  });
+  User.register(user as IUser, password)
     .then((user) => {
       if (!user) {
         res.status(500).send("Error registering user");
       } else {
         console.log(user);
         passport.authenticate("local")(req, res, () => {
-          res.status(200).send({message: "successfully created", user: user});
+          res.status(200).send({ message: "successfully created", user: user });
         });
       }
     })
@@ -83,10 +321,18 @@ app.post("/login", (req, res) => {
       passport.authenticate("local")(req, res, () => {
         //passport.authenticate("local") return a function
         console.log(user);
-        res.status(200).send({message: "succe"});
-        
+        res.status(200).send({ message: "successfully logined" });
       });
     }
+  });
+  // console.log(req.user);
+});
+app.get("/logout", (req, res) => {
+  req.logout(function (err) {
+    if (err) {
+      console.log(`logout failed ${err}`);
+    }
+    res.redirect("/");
   });
 });
 
