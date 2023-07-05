@@ -55,56 +55,121 @@ interface ProjectDate {
   passTime: number;
 }
 
+interface NotificationDate {
+  title: string;
+  content: number;
+  time: String;
+}
+
 app.get("/", ensureAuthenticated, (req: any, res: any) => {
   res.send("hello world");
 });
 
 app.get("/notifications", ensureAuthenticated, (req, res) => {
-  const user = req.user;
+  const authedUser = req.user as IUser;
+  console.log(authedUser);
+
+  User.findById(authedUser.id)
+    .then((foundUser) => {
+      const notificationofCurUser = foundUser?.notification;
+
+      
+      let responseNotificationDate: NotificationDate[] = [];
+      if (notificationofCurUser) {
+        notificationofCurUser.map((notification) => {
+          responseNotificationDate.push({
+            title: notification.title,
+            content: notification.content,
+            time: notification.time
+          });
+        });
+        res.status(200).send({ notification: responseNotificationDate });
+      } else {
+        res.status(200).send({ notification: [] });
+      }
+    })
+    .catch((e) => {
+      console.log(`get notification error: unable to find user`);
+      res
+        .status(400)
+        .send({ message: "get notification error: unable to find user" });
+    });
 });
 app.post("/notifications", ensureAuthenticated, (req, res) => {
-  const user = req.user;
+  const newNotification = new Notification({
+    id: uuidv4(),
+    title: req.body.title,
+    content: req.body.content,
+    time: moment(),
+  });
+
+  newNotification
+    .save()
+    .then(() => console.log("notification have saved"))
+    .catch((e) => console.log(`notification not saved ${e}`));
+
+  const authedUser = req.user as IUser;
+  User.findById(authedUser.id)
+    .then((foundUser) => {
+      foundUser?.notification?.push(newNotification);
+
+      foundUser
+        ?.save()
+        .then(() => {
+          res.status(200).send({
+            message: `notification has saved under this user ${authedUser.username}`,
+          });
+        })
+        .catch((e) => {
+          console.log(
+            `notification has saved under this user ${authedUser.username}. error: ${e}`
+          );
+          res.status(400).send({
+            message: `notification has saved under this user ${authedUser.username}. error: ${e}`,
+          });
+        });
+    })
+    .catch((e) => {
+      console.log("user not found");
+      res.status(400).send({ message: "user not found" });
+    });
 });
 app.get("/reources", ensureAuthenticated, (req, res) => {
   const user = req.user;
 });
 
-app.post("/resources", ensureAuthenticated, (req, res) => {
-
-})
+app.post("/resources", ensureAuthenticated, (req, res) => {});
 
 app.get("/projects", ensureAuthenticated, (req, res) => {
   const authedUser = req.user as IUser;
   console.log(authedUser);
 
-  User.findById(authedUser.id).then((foundUser) => {
-    const projectsofCurUser = foundUser?.projects;
-    
+  User.findById(authedUser.id)
+    .then((foundUser) => {
+      const projectsofCurUser = foundUser?.projects;
 
-    const currentDate = moment();
-    let responseProjectDate: ProjectDate[] = [];
-    if(projectsofCurUser){
-      
-      projectsofCurUser.map((project) => {
-        responseProjectDate.push({
-          projectName: project.projectName,
-          passTime: currentDate.diff(project.startDate, "days")
-        })
-      });
-      res.status(200).send({projects: responseProjectDate});
-    }else{
-      res.status(200).send({projects: []});
-    }
-    
-    
-  }).catch((e) => {
-    console.log(`get project error: unable to find user`)
-    res.status(400).send({message: "get project error: unable to find user"});
-  });
-
+      const currentDate = moment();
+      let responseProjectDate: ProjectDate[] = [];
+      if (projectsofCurUser) {
+        projectsofCurUser.map((project) => {
+          responseProjectDate.push({
+            projectName: project.projectName,
+            passTime: currentDate.diff(project.startDate, "days"),
+          });
+        });
+        res.status(200).send({ projects: responseProjectDate });
+      } else {
+        res.status(200).send({ projects: [] });
+      }
+    })
+    .catch((e) => {
+      console.log(`get project error: unable to find user`);
+      res
+        .status(400)
+        .send({ message: "get project error: unable to find user" });
+    });
 });
 app.post("/project", ensureAuthenticated, (req, res) => {
-  
   const newProject = new Project({
     id: uuidv4(),
     projectName: req.body.projectName,
