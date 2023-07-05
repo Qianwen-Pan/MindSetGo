@@ -7,6 +7,7 @@ import session from "express-session";
 import passport from "passport";
 import cors from 'cors';
 import User from "./model/User"
+import { ensureAuthenticated } from "./midware/auth";
 
 const app = express();
 app.use(express.json());
@@ -42,11 +43,15 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.get("/", (req: any, res: any) => {
+app.get("/", ensureAuthenticated,(req: any, res: any) => {
+  res.send("hello world");
+});
+app.get("/reources", ensureAuthenticated, (req, res) => {
   res.send("hello world");
 });
 
-app.post("/register", (req: any, res: any) => {
+
+app.post("/register", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
 
@@ -83,7 +88,7 @@ app.post("/login", (req, res) => {
       passport.authenticate("local")(req, res, () => {
         //passport.authenticate("local") return a function
         console.log(user);
-        res.status(200).send({message: "succe"});
+        res.status(200).send({message: "successfully logined"});
         
       });
     }
