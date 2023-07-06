@@ -18,7 +18,11 @@ import moment from "moment";
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({  
+  origin: 'http://localhost:3000',  // The address of your UI
+  methods: ['GET', 'POST'],
+  credentials: true,  // This allows session cookies to be sent back and forth
+}));
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(bodyParser.json());
 
