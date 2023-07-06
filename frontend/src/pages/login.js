@@ -1,10 +1,10 @@
+// import React from 'react';  //
+import { useNavigate } from "react-router-dom";
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
@@ -13,9 +13,9 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import ImageCard from "../components/ImageCard";
-import InputAdornment from '@mui/material/InputAdornment';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import LockIcon from '@mui/icons-material/Lock';
+import InputAdornment from "@mui/material/InputAdornment";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import LockIcon from "@mui/icons-material/Lock";
 
 function Copyright(props) {
   return (
@@ -39,7 +39,8 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-export default function SignInSide() {
+export default function Login() {
+  const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -47,6 +48,27 @@ export default function SignInSide() {
       email: data.get("email"),
       password: data.get("password"),
     });
+
+    fetch("http://localhost:5001/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: data.get("email"),
+        password: data.get("password"),
+      }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          navigate("/dashboard", { replace: true });
+        }
+        response.json();
+      })
+      .then((data) => console.log(data))
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   return (
@@ -68,11 +90,11 @@ export default function SignInSide() {
           <Box
             sx={{
               mt: -10,
-            //   mx: 4,
+              //   mx: 4,
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              height: '100vh'
+              height: "100vh",
             }}
           >
             <ImageCard />
@@ -101,7 +123,7 @@ export default function SignInSide() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h4" sx={{ color: "white" }}>
-              Sign in
+              Sign In
             </Typography>
             <Box
               component="form"
@@ -118,7 +140,6 @@ export default function SignInSide() {
                 name="email"
                 autoComplete="email"
                 autoFocus
-                
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -158,7 +179,7 @@ export default function SignInSide() {
                 Sign In
               </Button>
               <Grid container>
-                <Grid item xs>
+                {/* <Grid item xs>
                   <Link
                     href="#"
                     variant="body2"
@@ -166,14 +187,14 @@ export default function SignInSide() {
                   >
                     Forgot password?
                   </Link>
-                </Grid>
+                </Grid> */}
                 <Grid item>
                   <Link
-                    href="#"
+                    href="/register"
                     variant="body2"
                     sx={{ color: "white", textDecorationLine: "none" }}
                   >
-                    {"Don't have an account? Sign Up"}
+                    {"Already have an account? Sign In"}
                   </Link>
                 </Grid>
               </Grid>
