@@ -5,6 +5,7 @@ import Form from "../Form";
 import "../../styles.css";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import Headers from "../Header";
 
 function MyAccount() {
   //handle popup function
@@ -18,6 +19,7 @@ function MyAccount() {
 
   return (
     <div>
+        <Headers />
       <div className="newproject">
         <h1>Yours current projects resources</h1>
         {/* <button className="btn-newproject btn btn-outline-info btn-lg" >Create new project</button> */}

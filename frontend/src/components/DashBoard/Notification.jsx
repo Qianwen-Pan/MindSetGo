@@ -1,29 +1,30 @@
 import React from 'react'
 import { useNavigate} from 'react-router-dom';
 import "../../styles.css";
+import Headers from "../Header";
 
 export const Notification = () => {
     
   const navigate = useNavigate(); 
   const mood = (e)=>{
       e.preventDefault();
-      navigate("/Dashboard/Mood", { replace:true });
+      navigate("/Mood", { replace:true });
   };
   const envelope = (e)=>{
     e.preventDefault();
-    navigate("/Dashboard/EnvolopeFeedBack", { replace:true });
+    navigate("/EnvolopeFeedBack", { replace:true });
 
   };
   const meditation = (e)=>{
   e.preventDefault();
-  navigate("/Dashboard/Meditation", { replace:true });
+  navigate("/Meditation", { replace:true });
 
 
 };
   return (
    
     <div>
-    
+    <Headers />
       <h2 class='TitleH1'>NOTIFICATIONS</h2>
      
       <div class="grid-layout">

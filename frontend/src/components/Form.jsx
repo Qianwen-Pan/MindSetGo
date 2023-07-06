@@ -11,6 +11,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Typography from "@mui/material/Typography";
 
 
 export default function Form() {
@@ -75,6 +76,16 @@ export default function Form() {
     
       <div>
         <Header />
+        <Typography
+                  component="h1"
+                  variant="h4"
+                  align="center"
+                  color="text.primary"
+                  gutterBottom
+                  sx={{mt: -10}}
+                >
+                  Create New Project
+                </Typography>
         <div class="box">
           <form class="needs-validation" onSubmit={handleSubmit} noValidate>
             <div class="row g-3">

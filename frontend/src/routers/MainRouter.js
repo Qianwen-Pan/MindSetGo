@@ -1,50 +1,45 @@
-import React from 'react'
-import { Routes,Route,NavLink, BrowserRouter,Switch } from 'react-router-dom';
-import { Home } from '../components/Home';
+import React from "react";
+import {
+  Routes,
+  Route,
+  NavLink,
+  BrowserRouter,
+  Switch,
+} from "react-router-dom";
+import { Home } from "../components/Home";
 
+import { Notification } from "../components/DashBoard/Notification";
 
-import { Notification }  from '../components/DashBoard/Notification';
+import DashBoard from "../components/DashBoard";
+import Resources from "../components/DashBoard/Resources";
+import MyAccount from "../components/DashBoard/MyAccount";
+import { Mood } from "../components/DashBoard/Mood";
+import { EnvolopeFeedBack } from "../components/DashBoard/EnvolopeFeedBack";
+import { Meditation } from "../components/DashBoard/Meditation";
 
-import DashBoard  from '../components/DashBoard';
-import Resources from '../components/DashBoard/Resources';
-import MyAccount from '../components/DashBoard/MyAccount';
-import {Mood} from '../components/DashBoard/Mood';
-import {EnvolopeFeedBack}  from '../components/DashBoard/EnvolopeFeedBack';
-import {Meditation} from '../components/DashBoard/Meditation';
-
-import Login from '../pages/login';
+import Login from "../pages/login";
 import Signup from "../pages/Signup";
-import Form from '../components/Form';
-
-
-
+import Form from "../components/Form";
 
 export const MainRouter = () => {
   return (
-   
-     <BrowserRouter>
+    <BrowserRouter>
+      {/* Define all the navigatio routes */}
+      <Routes>
+        <Route path="/" element={<Home />} />
 
-        {/* Define all the navigatio routes */}
-        <Routes>
-            <Route path="/" element={<Home />} />
-            
-            <Route path="/login" element={<Login/>} />
-            <Route path='/register' element={<Signup/>} />
-            <Route path='/createproject' element={<Form/>} />
-            <Route path="/home" element={<Home />} />
-                <Route path="/dashBoard/*" element={<DashBoard />} >
-                <Route path="myAccount" element={<MyAccount />} />
-                <Route path="resources" element={<Resources />} /> 
-                <Route path="notification" element={<Notification />} />
-                <Route path="mood" element={<Mood />} />
-                <Route path="envolopeFeedBack" element={<EnvolopeFeedBack />} />
-                <Route path="meditation" element={<Meditation />} />
-               
-            </Route>
-
-        </Routes>
-
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Signup />} />
+        <Route path="/createproject" element={<Form />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/dashBoard" element={<DashBoard />} />
+        <Route path="/myAccount" element={<MyAccount />} />
+        <Route path="/resources" element={<Resources />} />
+        <Route path="/notification" element={<Notification />} />
+        <Route path="/mood" element={<Mood />} />
+        <Route path="/envolopeFeedBack" element={<EnvolopeFeedBack />} />
+        <Route path="/meditation" element={<Meditation />} />
+      </Routes>
     </BrowserRouter>
-    
-  )
-}
+  );
+};

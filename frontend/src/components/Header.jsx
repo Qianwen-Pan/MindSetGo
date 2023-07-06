@@ -5,18 +5,9 @@ import "../index.css";
 function Header() {
   return (
     <div>
-      {/* <nav class="menu">
-            <ul>
-                <li><NavLink to="/resources">Resources</NavLink></li>
-                <li><NavLink to="/notification">Notifications</NavLink></li>
-                <li><NavLink to="/myaccount">My Account</NavLink></li>
-            </ul>
-            </nav>    */}
       <nav class="menu">
         <ul>
-          {/* <li><NavLink to="/MyAccount">DashBoard</NavLink></li>
-                <li><NavLink to="/MyAccount/resources">Resources</NavLink></li>
-                <li><NavLink to="/MyAccount/notification">Notifications</NavLink></li> */}
+          
           <nav class="navbar navbar-expand-md sticky-top">
             <a class="navbar-brand" href="#">
               <img
