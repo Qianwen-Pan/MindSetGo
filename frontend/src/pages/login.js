@@ -194,7 +194,7 @@ export default function Login() {
                     variant="body2"
                     sx={{ color: "white", textDecorationLine: "none" }}
                   >
-                    {"Already have an account? Sign In"}
+                    {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
               </Grid>
