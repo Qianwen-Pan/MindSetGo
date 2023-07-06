@@ -50,6 +50,7 @@ export default function Login() {
     });
 
     fetch("http://localhost:5001/login", {
+      credentials: 'include',
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -60,17 +61,16 @@ export default function Login() {
       }),
     })
       .then((response) => {
-        if(response.ok){
+        console.log(response);
+        console.log(response.headers)
+        if (response.ok) {
           navigate("/dashboard", { replace: true });
         }
-        return response.json()})
-      .then((data) => console.log(data))
+      })
+      // .then((data) => console.log(data))
       .catch((error) => {
         console.error("Error:", error);
       });
-
-
-    
   };
 
   return (
@@ -181,7 +181,7 @@ export default function Login() {
                 Sign In
               </Button>
               <Grid container>
-                <Grid item xs>
+                {/* <Grid item xs>
                   <Link
                     href="#"
                     variant="body2"
@@ -189,7 +189,7 @@ export default function Login() {
                   >
                     Forgot password?
                   </Link>
-                </Grid>
+                </Grid> */}
                 <Grid item>
                   <Link
                     href="/register"
