@@ -222,15 +222,23 @@ body {
 .grid-layout  img{
 
   height: 40px;
+  vertical-align: super;
 
 }
 .containerNotificacion{
 border-bottom: 1px solid black;
 text-align: center;
+margin-top: 30px;
 }
 
 .TitleH1{
 text-align: center;
+
+}
+.title{
+  padding-top: 30px;
+  padding-bottom: 10px;
+
 
 }
 
@@ -246,14 +254,12 @@ text-align: center;
   /* margin-top: 30px;
   margin-left: 20px;
   margin-right: 20px; */
-  width: 80%;
+ 
   text-align: justify;
   margin-top: 15%;
   margin-left: 50%;
-
-transform: translate(-50%, -50%);
-  
-
+  width: 70%;
+  margin: 0 auto;
 }
 .grid-layoutMoodBalls{
   width: 80%;
@@ -271,7 +277,31 @@ transform: translate(-50%, -50%);
  
 
 }
+.envelopeImg{
 
+  height: 100px;
+
+}
+.divEnvelope
+{
+  text-align: center;
+  margin-top: 50px;
+
+}
+.message{
+
+  margin-top: 50px;
+  color: #9AC5F4;
+  font-size: 25px;
+  text-align: center;
+ 
+
+}
+.divMessage{
+
+  width: 50%;
+  margin: 0 auto;
+}
 .face{
 
   height: 40px;
@@ -283,4 +313,15 @@ transform: translate(-50%, -50%);
 
   height: 200px;
 
+}
+
+/* create new project*/
+.newproject {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 30px 10px 10px;
+}
+
+.btn-newproject {
+  float: right;
 }
