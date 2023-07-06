@@ -50,6 +50,7 @@ export default function Login() {
     });
 
     fetch("http://localhost:5001/login", {
+      credentials: 'include',
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -60,12 +61,13 @@ export default function Login() {
       }),
     })
       .then((response) => {
+        console.log(response);
+        console.log(response.headers)
         if (response.ok) {
           navigate("/dashboard", { replace: true });
         }
-        response.json();
       })
-      .then((data) => console.log(data))
+      // .then((data) => console.log(data))
       .catch((error) => {
         console.error("Error:", error);
       });

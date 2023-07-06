@@ -14,6 +14,7 @@ import {Meditation} from '../components/DashBoard/Meditation';
 
 import Login from '../pages/login';
 import Signup from "../pages/Signup";
+import Form from '../components/Form';
 
 
 
@@ -29,6 +30,7 @@ export const MainRouter = () => {
             
             <Route path="/login" element={<Login/>} />
             <Route path='/register' element={<Signup/>} />
+            <Route path='/createproject' element={<Form/>} />
             <Route path="/home" element={<Home />} />
                 <Route path="/dashBoard/*" element={<DashBoard />} >
                 <Route path="myAccount" element={<MyAccount />} />
