@@ -1,6 +1,7 @@
 import React from 'react'
 import { Routes,Route,NavLink, BrowserRouter,Switch } from 'react-router-dom';
 import { Home } from '../components/Home';
+
 import  Login  from '../pages/login';
 import { Notification }  from '../components/DashBoard/Notification';
 
@@ -10,6 +11,12 @@ import MyAccount from '../components/DashBoard/MyAccount';
 import {Mood} from '../components/DashBoard/Mood';
 import {EnvolopeFeedBack}  from '../components/DashBoard/EnvolopeFeedBack';
 import {Meditation} from '../components/DashBoard/Meditation';
+
+import Login from '../pages/login';
+import Signup from "../pages/Signup";
+import Notification from '../components/Notifications/Notification';
+import Resources from '../components/Resources';
+
 
 export const MainRouter = () => {
   return (
@@ -21,6 +28,7 @@ export const MainRouter = () => {
             <Route path="/" element={<Home />} />
             
             <Route path="/login" element={<Login/>} />
+            <Route path='/register' element={<Signup/>} />
             <Route path="/home" element={<Home />} />
                         <Route path="/dashBoard/*" element={<DashBoard />} >
                 <Route path="myAccount" element={<MyAccount />} />

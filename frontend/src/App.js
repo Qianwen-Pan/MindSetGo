@@ -1,14 +1,12 @@
-import './App.css';
-import SignInSide from './pages/login';
-import { Button } from '@mui/material';
-import ImageCard from './components/ImageCard';
+// import './App.css';
+// // import Login from './pages/Login';
+// import { Button } from '@mui/material';
+// import ImageCard from './components/ImageCard';
 
-function App() {
-  return (
-    <SignInSide />
-    // <ImageCard />
-    // {/* <Button variant='contained' sx={{ backgroundColor: "#9AC5F4"}}> Button</Button> */}
-  );
-}
+// function App() {
+//   return (
+//     <Login />
+//   );
+// }
 
-export default App;
+// export default App;
