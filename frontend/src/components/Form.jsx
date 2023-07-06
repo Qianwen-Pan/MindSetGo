@@ -6,10 +6,24 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./Header";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 
 export default function Form() {
   const navigate = useNavigate();
+  const [open, setOpen] = React.useState(false);
+  
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+    navigate("/dashboard", { replace: true });
+  };
 
   const [formInput, setFormInput] = useState({
     projectName: "",
@@ -45,7 +59,7 @@ export default function Form() {
     })
     .then((response) => {
       if (response.ok) {
-        navigate("/dashboard", { replace: true });
+        // navigate("/dashboard", { replace: true });
         return response.json();
       } else {
         throw new Error('Network response was not ok');
@@ -216,7 +230,7 @@ export default function Form() {
 
             {/* <button class="w-100 btn btn-outline-info btn-lg" type="submit">Create new project</button> */}
             <Button
-              // onClick={handleSubmit}
+              onClick={handleClickOpen}
               type="submit"
               fullWidth
               variant="contained"
@@ -224,6 +238,27 @@ export default function Form() {
             >
               Create New Project
             </Button>
+            <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Project ceate successfully"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Your project have been create, see your resources of this project and time line now.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          {/* <Button onClick={handleClose}>Disagree</Button> */}
+          <Button onClick={handleClose} autoFocus>
+            Next
+          </Button>
+        </DialogActions>
+      </Dialog>
           </form>
         </div>
       </div>
