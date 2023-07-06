@@ -284,3 +284,14 @@ transform: translate(-50%, -50%);
   height: 200px;
 
 }
+
+/* create new project*/
+.newproject {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 30px 10px 10px;
+}
+
+.btn-newproject {
+  float: right;
+}

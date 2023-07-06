@@ -10,8 +10,10 @@ import React, { useState } from "react";
 
    return (
      <div>
-       
-         <h1>Yours current  projects resources</h1>
+         <div className="newproject">
+            <h1>Yours current  projects resources</h1>
+            <button className="btn-newproject btn btn-outline-info btn-lg" >Create new project</button>
+         </div>
          <div>
                                          {popup?
                                          <div className="main">
@@ -19,17 +21,17 @@ import React, { useState } from "react";
 
                                              <div>
                                                  <div className="popup-head">
-                                                    <img src="smile.png" />
+                                                    <img src={process.env.PUBLIC_URL + '/smile.png'} />
                                                     <h3>You worked so hard, I got some gifts for you!</h3>
                                                  </div>
                                                  <div class="fourImages">
                                                   <div >
-                                                   <img  src="pop1.png" height="150px" width= "220px"/>
-                                                   <img src="pop2.png" height="150px" width= "220px"/>
+                                                   <img  src={process.env.PUBLIC_URL + '/pop1.png'} height="150px" width= "220px"/>
+                                                   <img src={process.env.PUBLIC_URL + '/pop2.png'} height="150px" width= "220px"/>
                                                   </div>
                                                   <div>
-                                                   <img src="pop3.png" class="secondline" height="150px" width= "220px"/>
-                                                   <img src="pop4.png" class="secondline" height="150px" width= "220px"/>
+                                                   <img src={process.env.PUBLIC_URL + '/pop3.png'} class="secondline" height="150px" width= "220px"/>
+                                                   <img src={process.env.PUBLIC_URL + '/pop4.png'} class="secondline" height="150px" width= "220px"/>
                                                   </div>
                                                  </div>
 
