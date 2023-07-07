@@ -1,8 +1,10 @@
 import React from 'react'
-
+import Header from '../components/Header'
 export const Meditation = () => {
   return (
+    
     <div className='meditationPage'>
+      <Header/>
       <h1 className='TitleH1 title'>Stress Relief Activities You Can Do at Home</h1>
       <div className='divMeditation'>
         <ul>

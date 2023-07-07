@@ -1,10 +1,11 @@
 import React from 'react'
-import "../../styles.css";
+import "../styles.css";
+import Header from '../components/Header';
 
 export const EnvolopeFeedBack = () => {
   return (
     <div>
-    
+    <Header/>
     <h1 className='TitleH1'>Envolope FeedBack</h1>
     <div className='divEnvelope'>
       <img className='envelopeImg' src='../images/bigEnvelope.png'></img>

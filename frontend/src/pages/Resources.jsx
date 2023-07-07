@@ -1,4 +1,4 @@
-import ResourceList from './ResourceList';
+import ResourceList from '../components/ResourceList';
 //import useFetch from './useFetch';
 
  const Resources = () => {

@@ -1,9 +1,11 @@
 import React from 'react'
-import "../../styles.css";
+import "../styles.css";
+import Header from '../components/Header';
 
 export const Mood = () => {
   return (
     <div>
+      <Header/>
     <div class="grid-layoutMoodTitle">
     <div>
      <h1 className='TitleH1'>Which ball stands for your mood today? 
