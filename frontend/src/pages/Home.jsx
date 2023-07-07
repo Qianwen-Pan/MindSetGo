@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate} from 'react-router-dom';
-import Footer from "./Footer";
+import Footer from "../components/Footer";
 import "../styles.css";
 import Button from "@mui/material/Button";
 

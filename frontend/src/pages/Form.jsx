@@ -3,7 +3,7 @@ import React, { useState } from "react";
 //  import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import Header from "./Header";
+import Header from "../components/Header";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import Dialog from '@mui/material/Dialog';

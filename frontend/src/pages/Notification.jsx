@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate} from 'react-router-dom';
-import "../../styles.css";
-import Headers from "../Header";
+import "../styles.css";
+import Headers from "../components/Header";
 
 export const Notification = () => {
     

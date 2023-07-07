@@ -6,20 +6,20 @@ import {
   BrowserRouter,
   Switch,
 } from "react-router-dom";
-import { Home } from "../components/Home";
+import { Home } from "../pages/Home";
 
-import { Notification } from "../components/DashBoard/Notification";
+import { Notification } from "../pages/Notification";
 
-import DashBoard from "../components/DashBoard";
-import Resources from "../components/DashBoard/Resources";
-import MyAccount from "../components/DashBoard/MyAccount";
-import { Mood } from "../components/DashBoard/Mood";
-import { EnvolopeFeedBack } from "../components/DashBoard/EnvolopeFeedBack";
-import { Meditation } from "../components/DashBoard/Meditation";
+import DashBoard from "../pages/DashBoard";
+import Resources from "../pages/Resources";
+import MyAccount from "../pages/MyAccount";
+import { Mood } from "../pages/Mood";
+import { EnvolopeFeedBack } from "../pages/EnvolopeFeedBack";
+import { Meditation } from "../pages/Meditation";
 
 import Login from "../pages/login";
 import Signup from "../pages/Signup";
-import Form from "../components/Form";
+import Form from "../pages/Form";
 
 export const MainRouter = () => {
   return (

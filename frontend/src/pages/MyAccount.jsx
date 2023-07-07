@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-import Footer from "../Footer";
-import Form from "../Form";
-import "../../styles.css";
+import Footer from "../components/Footer";
+import Form from "./Form";
+import "../styles.css";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
-import Headers from "../Header";
+import Headers from "../components/Header";
 
 function MyAccount() {
   //handle popup function
