@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import {
   Routes,
   Route,
@@ -24,14 +25,24 @@ import Container from "@mui/material/Container";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-
 import Header from "../components/Header";
-function DashBoard() {
-  const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
+function DashBoard() {
+  
+  const [projects, setProjects] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:5001/projects", {
+      credentials: "include",
+    })
+      .then((response) => response.json())
+      .then((data) => setProjects(data.projects))
+      .catch((e) => console.log(`fetch project error ${e}`));
+  }, []);
+  console.log(projects);
   // TODO remove, this demo shouldn't need to reset the theme.
   const defaultTheme = createTheme();
   return (
+    
     <div>
       <Header />
 
@@ -98,8 +109,8 @@ function DashBoard() {
             <Container sx={{ py: 8 }} maxWidth="md">
               {/* End hero unit */}
               <Grid container spacing={4}>
-                {cards.map((card) => (
-                  <Grid item key={card} xs={12} sm={6} md={4}>
+                {projects.map((project) => (
+                  <Grid item key={project._id} xs={12} sm={6} md={4}>
                     <Card
                       sx={{
                         height: "100%",
@@ -117,11 +128,9 @@ function DashBoard() {
                       />
                       <CardContent sx={{ flexGrow: 1 }}>
                         <Typography gutterBottom variant="h5" component="h2">
-                          Project Name
+                          {project.projectName}
                         </Typography>
-                        <Typography>
-                          See the stage of you project and check your resources.
-                        </Typography>
+                        <Typography>{project.description}</Typography>
                       </CardContent>
                       <CardActions>
                         <Button size="small" sx={{ color: "#9AC5F4" }}>

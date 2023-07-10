@@ -5,33 +5,33 @@ import "../index.css";
 function Header() {
   return (
     <div>
-      <nav class="menu">
+      <nav className="menu">
         <ul>
           
-          <nav class="navbar navbar-expand-md sticky-top">
-            <a class="navbar-brand" href="#">
+          <nav className="navbar navbar-expand-md sticky-top">
+            <a className="navbar-brand" href="#">
               <img
                 src="../logo.png"
                 alt="Logo"
-                class="logo"
+                className="logo"
                 width="200"
                 height="200"
               />
             </a>
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="/resources">
+            <ul className="navbar-nav ms-auto">
+              <li className="nav-item">
+                <a className="nav-link" href="/resources">
                   Resources
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/notification">
+              <li className="nav-item">
+                <a className="nav-link" href="/notification">
                   Notifications
                 </a>
               </li>
-              <li class="nav-item">
+              <li className="nav-item">
                 <a
-                  class="nav-link active"
+                  className="nav-link active"
                   aria-current="page"
                   href="/myAccount"
                 >

@@ -17,10 +17,10 @@ export const Home = () =>
 
     return (
       <div>
-      <img src="logo.png"  alt="Logo" class="logo" width="200" height="200"/>
-      <body class="container">
+      <img src="logo.png"  alt="Logo" className="logo" width="200" height="200"/>
+      <body className="container">
 
-        <div class="home_title">
+        <div className="home_title">
            <h1>Agil Projects Need Agile Mind</h1>
            <p>Help your team be mentally ready  in the agile projects</p>
            
@@ -34,8 +34,8 @@ export const Home = () =>
               </Button>
         </div>
         <div> 
-           <img class="home_img" src="home1.png" id= "home1"/>
-           <img class="home_img" src="home2.png" id= "home2" />
+           <img className="home_img" src="home1.png" id= "home1"/>
+           <img className="home_img" src="home2.png" id= "home2" />
         </div>
       </body>
      <Footer />
