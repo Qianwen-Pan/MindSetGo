@@ -28,16 +28,17 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Header from "../components/Header";
 
 function DashBoard() {
-  
   const [projects, setProjects] = useState([]);
-  useEffect = () => {
-    fetch("http://localhost:5001/projects", {
-      credentials: "include"
-    })
-      .then((response) => response.json())
-      .then((data) => setProjects(data.projects))
-      .catch((e) => console.log(`fetch project error ${e}`));
-  };
+  useEffect
+    (() => {
+      fetch("http://localhost:5001/projects", {
+        credentials: "include",
+      })
+        .then((response) => response.json())
+        .then((data) => setProjects(data.projects))
+        .catch((e) => console.log(`fetch project error ${e}`));
+    },
+    []);
 
   // TODO remove, this demo shouldn't need to reset the theme.
   const defaultTheme = createTheme();
@@ -129,9 +130,7 @@ function DashBoard() {
                         <Typography gutterBottom variant="h5" component="h2">
                           {project.projectName}
                         </Typography>
-                        <Typography>
-                          {project.description}
-                        </Typography>
+                        <Typography>{project.description}</Typography>
                       </CardContent>
                       <CardActions>
                         <Button size="small" sx={{ color: "#9AC5F4" }}>
