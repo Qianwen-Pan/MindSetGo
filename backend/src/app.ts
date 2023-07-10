@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 import express from "express";
-import mongoose from "mongoose";
+import mongoose, { ObjectId } from "mongoose";
 import bodyParser from "body-parser";
 import session from "express-session";
 import passport, { authenticate } from "passport";
@@ -54,6 +54,7 @@ passport.deserializeUser(User.deserializeUser());
 
 //interface
 interface ProjectData {
+  _id: string,
   projectName: string;
   description: string;
   passTime: number;
@@ -225,6 +226,7 @@ app.get("/projects", ensureAuthenticated, (req, res) => {
       if (projectsofCurUser) {
         projectsofCurUser.map((project) => {
           responseProjectDate.push({
+            _id: project._id,
             projectName: project.projectName,
             description: project.description,
             passTime: currentDate.diff(project.startDate, "days"),

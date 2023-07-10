@@ -28,21 +28,21 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Header from "../components/Header";
 
 function DashBoard() {
+  
   const [projects, setProjects] = useState([]);
-  useEffect
-    (() => {
-      fetch("http://localhost:5001/projects", {
-        credentials: "include",
-      })
-        .then((response) => response.json())
-        .then((data) => setProjects(data.projects))
-        .catch((e) => console.log(`fetch project error ${e}`));
-    },
-    []);
-
+  useEffect(() => {
+    fetch("http://localhost:5001/projects", {
+      credentials: "include",
+    })
+      .then((response) => response.json())
+      .then((data) => setProjects(data.projects))
+      .catch((e) => console.log(`fetch project error ${e}`));
+  }, []);
+  console.log(projects);
   // TODO remove, this demo shouldn't need to reset the theme.
   const defaultTheme = createTheme();
   return (
+    
     <div>
       <Header />
 
@@ -110,7 +110,7 @@ function DashBoard() {
               {/* End hero unit */}
               <Grid container spacing={4}>
                 {projects.map((project) => (
-                  <Grid item key={project.id} xs={12} sm={6} md={4}>
+                  <Grid item key={project._id} xs={12} sm={6} md={4}>
                     <Card
                       sx={{
                         height: "100%",
