@@ -4,6 +4,7 @@ const projectSchema = new mongoose.Schema({
 
     id: String,
     projectName: String,
+    description: String,
     remote: Boolean,
     projectLen: Number,
     priority: String,

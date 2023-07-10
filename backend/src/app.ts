@@ -10,7 +10,6 @@ import User from "./model/User";
 import { ensureAuthenticated } from "./midware/auth";
 import Project from "./model/Project";
 import { IUser } from "./model/User";
-
 import Reource from "./model/Reource";
 import Notification from "./model/Notification";
 import { v4 as uuidv4 } from "uuid";
@@ -56,6 +55,7 @@ passport.deserializeUser(User.deserializeUser());
 //interface
 interface ProjectData {
   projectName: string;
+  description: string;
   passTime: number;
 }
 
@@ -226,6 +226,7 @@ app.get("/projects", ensureAuthenticated, (req, res) => {
         projectsofCurUser.map((project) => {
           responseProjectDate.push({
             projectName: project.projectName,
+            description: project.description,
             passTime: currentDate.diff(project.startDate, "days"),
           });
         });
@@ -245,6 +246,7 @@ app.post("/project", ensureAuthenticated, (req, res) => {
   const newProject = new Project({
     id: uuidv4(),
     projectName: req.body.projectName,
+    description: req.body.description,
     remote: req.body.isRemote,
     projectLen: req.body.projectLen,
     priority: req.body.priority,
