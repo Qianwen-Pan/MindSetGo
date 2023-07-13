@@ -1,16 +1,52 @@
-import ResourceList from '../components/ResourceList';
-//import useFetch from './useFetch';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./Resources.css"
+import Masonry from "react-masonry-css";
 
- const Resources = () => {
-    const {data: resources, isPending, error} = fetch('http://localhost:5001/resources');
+function Resources() {
+  const [pins, setPins] = useState([]);
+  const [filter, setFilter] = useState("");
 
-    return ( 
-        <div className="resources">
-            {error && <div>{error}</div>}
-            {isPending && <div>Loading...</div>}
-            <ResourceList resources={resources} title="All Resources"/>
-        </div>
-     );
- }
+  useEffect(() => {
+    async function fetchData() {
+      const response = await axios.get("http://localhost:5001/pins");
+    //   console.log(response.data);
+      setPins(response.data);
+    }
+    fetchData();
+  }, []);
 
- export default Resources; 
+  function handleFilterChange(event) {
+    setFilter(event.target.value);
+  }
+
+  const filteredPins = pins.filter(pin =>
+    pin.title.toLowerCase().includes(filter.toLowerCase())
+  );
+
+  const breakpointColumnsObj = {
+    default: 4,
+    1100: 3,
+    700: 2,
+    500: 1
+  };
+
+
+  return (
+    <>
+    <input type="text" value={filter} onChange={handleFilterChange} placeholder="Filter..." />
+    <Masonry
+        breakpointCols={breakpointColumnsObj}
+        className="my-masonry-grid"
+        columnClassName="my-masonry-grid_column">
+        {filteredPins.map((pin) => (
+          <div key={pin.id}>
+            <img src={pin.image} alt={pin.title} />
+            <p>{pin.title}</p>
+          </div>
+        ))}
+      </Masonry>
+      </>
+  );
+}
+export default Resources;

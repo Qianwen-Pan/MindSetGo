@@ -39,6 +39,7 @@ export const MainRouter = () => {
         <Route path="/mood" element={<Mood />} />
         <Route path="/envolopeFeedBack" element={<EnvolopeFeedBack />} />
         <Route path="/meditation" element={<Meditation />} />
+        <Route path="/resources" element={<Resources />} />
       </Routes>
     </BrowserRouter>
   );
